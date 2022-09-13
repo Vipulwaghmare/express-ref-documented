@@ -1,26 +1,36 @@
 const express = require("express");
-const User = require("./model/User");
+const YAML = require("yamljs");
+const swaggerUi = require("swagger-ui-express");
+const multer = require("multer");
+const cookieParser = require("cookie-parser");
+require("dotenv").config({ path: "./config/.env" });
+const dbConnection = require("./config/database");
+const errorHandler = require("./middleware/errorHandler");
+const pageNotFound = require("./middleware/pageNotFound");
 
-require("dotenv").config();
-// require("./config/database").connect();
+// Routes import
+const authRoutes = require("./routes/auth");
+
+// Set - Up
+const swaggerDocument = YAML.load("./swagger.yaml");
 const app = express();
+const upload = multer({ dest: "uploads/" });
+dbConnection();
+
+// Middlewares
 app.use(express.json());
+app.use(cookieParser());
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-app.get("/", (req, res) => {
-	res.send("<h2>Hello!</h2>");
+app.get("/", (_, res) => {
+  throw Error;
+  res.send("Hi Mom");
 });
+// Routes
+app.use("/api/v1", authRoutes);
 
-app.post("/signup", async ({ body }, res) => {
-	const { firstname, lastname, email, password } = body;
-	if (!(email && password && firstname && lastname)) {
-		res.status(400).json({
-			message: "All fields are required"
-		});
-	}
-	const existingUser = await User.findOne({ email });
-
-	if (existingUser)
-		res.status(401).send({ message: "Email Is Already in use" });
-});
+// app.use();
+app.use(errorHandler);
+app.use(pageNotFound);
 
 module.exports = app;

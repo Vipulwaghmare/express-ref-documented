@@ -1,0 +1,185 @@
+openapi: 3.0.0
+info:
+  title: Social App
+  description: Our first Social App
+  version: 1.0.1
+  contact:
+    email: vipulwaghmare222@gmail.com
+    url: https://github.com/Vipulwaghmare
+
+# server list for your servers
+servers:
+  - url: "{protocol}://localhost:8080/api/{version}"
+    description: localhost version of our app
+    variables:
+      version: #variable name
+        enum: #enum for limited options
+          - v1
+          - v2
+        default: v1
+      protocol: #variable name
+        enum:
+          - http
+          - https
+        default: http
+
+components:
+  securitySchemes:
+    BasicAuth: # with email and password
+      type: http
+      scheme: basic
+    BearerAuth: # with bearer token
+      type: http
+      scheme: bearer
+    cookieAuth: # with cookies
+      type: apiKey
+      in: cookie
+      name: token
+
+paths:
+  /instagram-test:
+    get:
+      tags: # Combines different request with same tags, makes life easier
+        - Test
+      summary: returns username, followers and follows
+      responses:
+        "200":
+          description: returns an object
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  username:
+                    type: string
+                  followers:
+                    type: string
+                  follos:
+                    type: string
+  /{id}:
+    post:
+      tags:
+        - Test
+      summary: returns id in params
+      parameters:
+        - name: id
+          default: "default-id"
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: returns an object
+          content:
+            application/json:
+              schema:
+                type: string
+  /array:
+    get:
+      tags:
+        - Test
+      summary: returns an array
+      responses:
+        "200":
+          description: returns an Array
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    username:
+                      type: string
+                    followers:
+                      type: string
+                    follos:
+                      type: string
+  /mycourse/{courseId}:
+    get:
+      tags:
+        - Test
+      summary: returns an array
+      responses:
+        "200":
+          description: returns an Array
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    username:
+                      type: string
+                    followers:
+                      type: string
+                    follos:
+                      type: string
+  /addCourse:
+    get:
+      tags:
+        - Test
+      summary: returns an array
+      responses:
+        "200":
+          description: returns an Array
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    username:
+                      type: string
+                    followers:
+                      type: string
+                    follos:
+                      type: string
+  /courseQuery:
+    get:
+      tags:
+        - Test
+      summary: returns an array
+      responses:
+        "200":
+          description: returns an Array
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    username:
+                      type: string
+                    followers:
+                      type: string
+                    follos:
+                      type: string
+  /img-upload:
+    post:
+      tags:
+        - Test
+      summary: Upload course image
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: returns an image
+          content:
+            multipart/form-data:
+              schema:
+                type: object
+                properties:
+                  file:
+                    type: string
+                    format: binary
