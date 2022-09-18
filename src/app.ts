@@ -5,14 +5,15 @@ import YAML from 'yamljs'
 import multer from 'multer'
 import session from 'express-session'
 import dotEnv from 'dotenv'
+import helmet from "helmet";
 
 dotEnv.config({ path: './config/.env' })
-import dbConnection from "./config/database"
+import dbConnection from "../config/database"
 import errorHandler from "./middleware/errorHandler"
 import pageNotFound from "./middleware/pageNotFound"
 
 // Routes import
-const authRoutes = require("./routes/auth");
+const authRoutes = require("./routes/auth.routes");
 
 const swaggerDocument = YAML.load("./swagger.yaml");
 const app = express()
@@ -39,6 +40,8 @@ app.use(
 // Middlewares
 app.use(express.json());
 app.use(cookieParser());
+// Helmet is used for security : Adds additional headers to req res
+app.use(helmet());
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 

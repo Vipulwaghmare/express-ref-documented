@@ -11,10 +11,49 @@ datasource db {
 }
 
 model User {
-  id Int @id @default(autoincrement())
-  name String
+  id       String    @id @default(uuid())
+  name     String
   password String
-  dob String
-  email String @unique 
-  isAdmin Boolean @default(false)
+  dob      String
+  email    String    @unique
+  isAdmin  Boolean   @default(false)
+  comments Comment[]
+  Like     Like[]
+}
+
+model Post {
+  id       String    @id @default(uuid())
+  title    String
+  body     String
+  comments Comment[]
+}
+
+model Comment {
+  id          String    @id @default(uuid())
+  message     String
+  createdDate DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  userId      String
+  // onDelete : Cascade
+  // Deletes all comments of user if user is deleted
+  // Delete all comments if post is deleted
+  // delete all child comment if parent comment is deleted
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  postId      String
+  post        Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
+  // Parent Comment is optional since parent comment doesn't have any parent comment
+  parentId    String?
+  // children comment is array 
+  children    Comment[] @relation("ParentChild")
+  parent      Comment?  @relation("ParentChild", fields: [parentId], references: [id], onDelete: Cascade)
+  Like        Like[]
+}
+
+model Like {
+  userId    String
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  commentId String
+  comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+
+  @@id([userId, commentId])
 }
