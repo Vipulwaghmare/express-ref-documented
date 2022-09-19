@@ -1,24 +1,27 @@
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
-  firstname: {
+  id: {
+    type: String,
+  },
+  name: {
     type: String,
     default: null,
   },
-  lastname: {
+  password: {
     type: String,
-    default: null,
+  },
+  dob: {
+    type: Date
   },
   email: {
     type: String,
     unique: true,
   },
-  password: {
-    type: String,
-  },
-  token: {
-    type: String,
-  },
+  isAdmin: {
+    type: Boolean,
+    default: false
+  }
 });
 
 export default mongoose.model("user", userSchema);

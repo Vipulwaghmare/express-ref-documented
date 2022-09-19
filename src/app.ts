@@ -6,6 +6,7 @@ import multer from 'multer'
 import session from 'express-session'
 import dotEnv from 'dotenv'
 import helmet from "helmet";
+import logger from './logger'
 
 dotEnv.config({ path: './config/.env' })
 import dbConnection from "../config/database"
@@ -57,5 +58,11 @@ app.use("/api/v1", authRoutes);
 // app.use();
 app.use(errorHandler);
 app.use(pageNotFound);
+
+// if (logger !== null) logger.info("STARTING")
+logger?.info("logger")
+logger?.error("ERROR")
+logger?.warn("ERROR")
+logger?.debug("ERROR")
 
 export default app;

@@ -10,6 +10,9 @@
   },
   "author": "Vipul Waghmare",
   "license": "ISC",
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.171.0",
     "@prisma/client": "^4.3.1",
@@ -25,6 +28,7 @@
     "multer": "^1.4.5-lts.1",
     "prisma": "^4.3.1",
     "swagger-ui-express": "^4.3.0",
+    "winston": "^3.8.2",
     "yamljs": "^0.3.0"
   },
   "devDependencies": {
