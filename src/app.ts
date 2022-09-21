@@ -25,7 +25,11 @@ dbConnection();
 declare var process: {
   env: {
     SESSION_SECRET: string,
-    MONGODB_URL: string
+    MONGODB_URL: string,
+    SMTP_SERVER: string,
+    SMTP_PORT: string,
+    SMTP_LOGIN: string,
+    SMTP_PASSWORD: string,
   }
 }
 

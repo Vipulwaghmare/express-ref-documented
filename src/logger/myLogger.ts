@@ -22,11 +22,27 @@ const myLogger = (): Logger => {
       // - Write all logs with importance level of `info` or less to `combined.log`
       //
       new transports.Console(),
-      new transports.File({ filename: 'error.log', level: 'error' }), // 0
-      new transports.File({ filename: 'warnings.log', level: "warn" }), // 1
-      new transports.File({ filename: 'info.log', level: "info" }), // 2
-      new transports.File({ filename: 'debug.log', level: "debug" }),// 5
-      new transports.File({ filename: 'combined.log' }),// 5
+      new transports.File({
+        filename: 'error.log', level: 'error',
+        maxsize: 5242880
+      }), // 0
+      new transports.File({
+        filename: 'warnings.log', level: "warn",
+        maxsize: 5242880
+      }), // 1
+      new transports.File({
+        filename: 'info.log', level: "info",
+        maxsize: 5242880
+      }), // 2
+      new transports.File({
+        filename: 'debug.log', level: "debug",
+        maxsize: 5242880
+      }),// 5
+      new transports.File({
+        filename: 'combined.log',
+        maxsize: 5242880
+      }),// 5 
+
     ],
   });
 }

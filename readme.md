@@ -16,3 +16,9 @@ npx prisma migrate dev --name init
 <!-- To format prisma file -->
 
 npx primsa format
+
+<!-- To add some test data -->
+
+<!-- Deletes previous posts and users -->
+
+npx prisma db seed

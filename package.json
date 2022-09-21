@@ -17,6 +17,8 @@
     "@aws-sdk/client-s3": "^3.171.0",
     "@prisma/client": "^4.3.1",
     "@types/cookie-parser": "^1.4.3",
+    "@types/nodemailer": "^6.4.6",
+    "@types/winston-mail": "^1.5.2",
     "cookie-parser": "^1.4.6",
     "date-format": "^4.0.3",
     "dotenv": "^16.0.0",
@@ -26,9 +28,11 @@
     "helmet": "^6.0.0",
     "mongoose": "^6.2.2",
     "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.7.8",
     "prisma": "^4.3.1",
     "swagger-ui-express": "^4.3.0",
     "winston": "^3.8.2",
+    "winston-mail": "^2.0.0",
     "yamljs": "^0.3.0"
   },
   "devDependencies": {
