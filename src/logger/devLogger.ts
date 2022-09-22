@@ -6,7 +6,7 @@ const myFormat = printf(({ level, message, label, timestamp }) => {
   return `[${timestamp}] - [${level}] : ${message}`;
 });
 
-const myLogger = (): Logger => {
+const devLogger = (): Logger => {
   return createLogger({
     level: 'debug',
     format: combine(
@@ -23,23 +23,23 @@ const myLogger = (): Logger => {
       //
       new transports.Console(),
       new transports.File({
-        filename: 'error.log', level: 'error',
+        filename: './logs/devLogs/error.log', level: 'error',
         maxsize: 5242880
       }), // 0
       new transports.File({
-        filename: 'warnings.log', level: "warn",
+        filename: './logs/devLogs/warnings.log', level: "warn",
         maxsize: 5242880
       }), // 1
       new transports.File({
-        filename: 'info.log', level: "info",
+        filename: './logs/devLogs/info.log', level: "info",
         maxsize: 5242880
       }), // 2
       new transports.File({
-        filename: 'debug.log', level: "debug",
+        filename: './logs/devLogs/debug.log', level: "debug",
         maxsize: 5242880
       }),// 5
       new transports.File({
-        filename: 'combined.log',
+        filename: './logs/devLogs/combined.log',
         maxsize: 5242880
       }),// 5 
 
@@ -47,4 +47,4 @@ const myLogger = (): Logger => {
   });
 }
 
-export default myLogger
+export default devLogger

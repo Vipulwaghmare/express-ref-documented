@@ -1,10 +1,13 @@
-import winston from "winston"
-import myLogger from "./myLogger";
+import devLogger from "./devLogger";
+import prodLogger from "./prodLogger";
 
-let logger: null | winston.Logger = null;
+let logger = devLogger()
 
-if (process.env.NODE_ENV !== "production") {
-  logger = myLogger()
+if (process.env.NODE_ENV === "production") {
+  logger = prodLogger()
 }
+
+// ! Test only
+// logger = prodLogger()
 
 export default logger
