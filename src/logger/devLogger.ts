@@ -44,6 +44,9 @@ const devLogger = (): Logger => {
       }),// 5 
 
     ],
+    exceptionHandlers: [
+      new transports.File({ filename: './logs/devLogs/exceptions.log' })
+    ]
   });
 }
 

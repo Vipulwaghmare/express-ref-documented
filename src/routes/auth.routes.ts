@@ -8,4 +8,4 @@ authRouter.route("/register").post(register, errorHandler);
 authRouter.route("/login").post(login);
 authRouter.route("/logout").get(logout);
 
-module.exports = authRouter;
+export default authRouter;

@@ -42,15 +42,6 @@ const prodLogger = (): Logger => {
     handleExceptions: true,
     transports: [
       new transports.Console(),
-      // new Mail({
-      //   to: 'vipulwaghmare222@gmail.com',
-      //   from: process.env.SMTP_SENDER,
-      //   subject: 'uncaughtException Report',
-      //   host: process.env.SMTP_SERVER,
-      //   username: process.env.SMTP_LOGIN,
-      //   password: process.env.SMTP_PASSWORD,
-      //   ssl: false
-      // })
       new transports.File({
         filename: './logs/prodLogs/error.log', level: 'error',
         maxsize: 5242880
@@ -74,15 +65,7 @@ const prodLogger = (): Logger => {
       // new Mail(options)
     ],
     exceptionHandlers: [
-      new Mail({
-        to: 'vipulwaghmare222@gmail.com',
-        from: process.env.SMTP_SENDER,
-        subject: 'uncaughtException Report',
-        host: process.env.SMTP_SERVER,
-        username: process.env.SMTP_LOGIN,
-        password: process.env.SMTP_PASSWORD,
-        ssl: false
-      })
+      new transports.File({ filename: './logs/prodLogs/exceptions.log' })
     ]
   });
 }

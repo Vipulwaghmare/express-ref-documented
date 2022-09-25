@@ -7,14 +7,16 @@ import session from 'express-session'
 import dotEnv from 'dotenv'
 import helmet from "helmet";
 import logger from './logger'
+import cron from 'node-cron'
 
-dotEnv.config({ path: './config/.env' })
+// dotEnv.config({ path: './config/.env' })
 import dbConnection from "../config/database"
 import errorHandler from "./middleware/errorHandler"
 import pageNotFound from "./middleware/pageNotFound"
 
-// Routes import
-const authRoutes = require("./routes/auth.routes");
+// Routes import 
+import authRoutes from './routes/auth.routes'
+// import paginationRoute from './routes/pagination.routes'
 
 const swaggerDocument = YAML.load("./swagger.yaml");
 const app = express()
@@ -32,7 +34,13 @@ declare var process: {
     SMTP_PASSWORD: string,
   }
 }
-
+// try {
+//   cron.schedule("*/10 * * * * *", function () {
+//     console.log("running a task every 10 second");
+//   });
+// } catch (error) {
+//   logger?.error("ERROR")
+// }
 // * AUTH WITH SESSION
 app.use(
   session({
@@ -51,22 +59,24 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
 app.get("/", (req: Request, res: Response) => {
-  // throw Error;
+  logger?.info("INSIDE GET FUNTION")
+  throw Error("TRHOW");
   // res.send("Hi Mom");
   res.send("BRO")
 });
 
 // Routes
 app.use("/api/v1", authRoutes);
+// app.use("/api/v1", paginationRoute)
 
 // app.use();
-app.use(errorHandler);
+// app.use(errorHandler);
 app.use(pageNotFound);
 
-// if (logger !== null) logger.info("STARTING")
-logger?.info("logger")
-logger?.error("ERROR")
-logger?.warn("ERROR")
-logger?.debug("ERROR")
+logger.info("STARTING")
+logger.info("logger")
+logger.error("ERROR")
+logger.warn("ERROR")
+logger.debug("ERROR")
 
 export default app;
