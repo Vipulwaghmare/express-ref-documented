@@ -11,7 +11,7 @@ const helmet = require("helmet");
 const logger = require("./logger");
 const cron = require("node-cron");
 
-// // dotEnv.config({ path: './config/.env' })
+dotEnv.config({ path: "./config/.env" });
 const dbConnection = require("../config/database");
 const errorHandler = require("./middleware/errorHandler");
 const pageNotFound = require("./middleware/pageNotFound");
@@ -23,7 +23,7 @@ const authRoutes = require("./routes/auth.routes");
 const swaggerDocument = YAML.load("./swagger.yaml");
 const app = express();
 const upload = multer({ dest: "uploads/" });
-// dbConnection();
+dbConnection();
 
 // // try {
 // //   cron.schedule("*/10 * * * * *", function () {
