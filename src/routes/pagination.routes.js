@@ -1,6 +1,6 @@
 const express = require("express");
 const { pagination } = require("../controllers/pagination.controller");
-const errorHandler = require("../middleware/errorHandler");
+const errorHandler = require("../middleware/errorHandler.js");
 const paginationMiddleware = require("../middleware/pagination");
 
 const paginationRoute = express.Router();

@@ -8,17 +8,17 @@ const multer = require("multer");
 const session = require("express-session");
 const dotEnv = require("dotenv");
 const helmet = require("helmet");
-// const logger = require("./logger");
+const logger = require("./logger");
 const cron = require("node-cron");
 
 // // dotEnv.config({ path: './config/.env' })
-// import dbConnection from "../config/database"
-// import errorHandler from "./middleware/errorHandler"
-// import pageNotFound from "./middleware/pageNotFound"
+const dbConnection = require("../config/database");
+const errorHandler = require("./middleware/errorHandler");
+const pageNotFound = require("./middleware/pageNotFound");
 
-// // Routes import
-// import authRoutes from './routes/auth.routes'
-// // import paginationRoute from './routes/pagination.routes'
+// Routes import
+const authRoutes = require("./routes/auth.routes");
+// // const paginationRoute = require('./routes/pagination.routes')
 
 const swaggerDocument = YAML.load("./swagger.yaml");
 const app = express();
