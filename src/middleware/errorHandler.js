@@ -1,6 +1,12 @@
-const errorHandler = (err, req, res, next) => {
-  console.log("X---------->\n", err);
-  res.status(500).send("Something went wrong");
+const logger = require("../logger");
+
+const errorLogger = (err, req, res, next) => {
+  logger.error(err);
+  next(err);
 };
 
-module.exports = errorHandler;
+const errorResponder = (err, req, res, next) => {
+  res.status(500).send({ error: "Something went wrong" });
+};
+
+module.exports = { errorLogger, errorResponder };

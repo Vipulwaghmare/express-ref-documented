@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
+const logger = require("../src/logger");
 
 const { MONGODB_URL } = process.env;
-console.log("XXX", process.env.MONGODB_URL);
 
 function dbConnection() {
   mongoose
@@ -11,8 +11,7 @@ function dbConnection() {
     })
     .then(() => console.log("DB Connected Successfully"))
     .catch((error) => {
-      console.log("DB Connection Failed");
-      console.log("DB ERROR", error);
+      logger.error("DB Connection Failed : " + error);
     });
 }
 module.exports = dbConnection;

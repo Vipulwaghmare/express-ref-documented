@@ -13,11 +13,12 @@ const cron = require("node-cron");
 
 dotEnv.config({ path: "./config/.env" });
 const dbConnection = require("../config/database");
-const errorHandler = require("./middleware/errorHandler");
+const { errorLogger, errorResponder } = require("./middleware/errorHandler");
 const pageNotFound = require("./middleware/pageNotFound");
 
 // Routes import
 const authRoutes = require("./routes/auth.routes");
+const corsOptions = require("../config/cors");
 // // const paginationRoute = require('./routes/pagination.routes')
 
 const swaggerDocument = YAML.load("./swagger.yaml");
@@ -25,14 +26,14 @@ const app = express();
 const upload = multer({ dest: "uploads/" });
 dbConnection();
 
-// // try {
-// //   cron.schedule("*/10 * * * * *", function () {
-// //     console.log("running a task every 10 second");
-// //   });
-// // } catch (error) {
-// //   logger?.error("ERROR")
-// // }
-// // * AUTH WITH SESSION
+// try {
+//   cron.schedule("*/10 * * * * *", function () {
+//     console.log("running a task every 10 second");
+//   });
+// } catch (error) {
+//   logger?.error("ERROR")
+// }
+// * AUTH WITH SESSION
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -40,33 +41,12 @@ app.use(
     saveUninitialized: false,
   }),
 );
-
-// // Middlewares
-// For content-type: application/x-www-form-urlencoded
-app.use(express.urlencoded({ extended: false }));
+// Middlewares
+app.use(express.urlencoded({ extended: false })); // For content-type: application/x-www-form-urlencoded
 app.use(express.json());
 app.use(cookieParser());
-
-// CORS
-const whitelist = [
-  "https://www.youtube.com",
-  "http://localhost:3000",
-  "http://127.0.0.1:3001",
-];
-const corsOptions = {
-  origin: (origin, callback) => {
-    // ! !origin is only for development
-    if (whitelist.indexOf(origin) !== -1 || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  optionsSuccessStatus: 200,
-};
 app.use(cors(corsOptions));
-// // Helmet is used for security : Adds additional headers to req res
-app.use(helmet());
+app.use(helmet()); // Helmet is used for security : Adds additional headers to req res
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // app.get("/", (req: Request, res: Response) => {
@@ -76,24 +56,23 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 //   res.send("BRO")
 // });
 
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "views", "index.html"));
-});
+// app.get("/", (req, res) => {
+//   res.sendFile(path.join(__dirname, "views", "index.html"));
+// });
 
 // // Routes
-// app.use("/api/v1", authRoutes);
+app.use("/api/v1", authRoutes);
 // // app.use("/api/v1", paginationRoute)
 
 // // app.use();
-// // app.use(errorHandler);
-// app.use(pageNotFound);
+app.use(errorLogger);
+app.use(errorResponder);
+app.use(pageNotFound);
 
 // logger.info("STARTING")
 // logger.info("logger")
 // logger.error("ERROR")
 // logger.warn("ERROR")
 // logger.debug("ERROR")
-
-// export default app;
 
 module.exports = app;

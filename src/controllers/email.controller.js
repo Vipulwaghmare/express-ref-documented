@@ -19,6 +19,16 @@ const getMailData = ({ to, subject, text, html, attachment }) => ({
   attachment,
 });
 
+// ! Send mail
+// const data = {
+//   to: 'vipulwaghmare222@gmail.com',
+//   subject: 'Test',
+//   text: 'Text whre will this be',
+//   html: '<h1>Hello this is h1 tag</h1>'
+// }
+// const test = sendMail(data)
+// res.send(test);
+
 const sendMail = (data) => {
   const mailData = getMailData(data);
   transporter.sendMail(mailData, (error, info) => {
