@@ -52,6 +52,7 @@ const prodLogger = () => {
     ],
     exceptionHandlers: [
       new transports.File({ filename: "./logs/prodLogs/exceptions.log" }),
+      new transports.Mail(options),
     ],
   });
 };
