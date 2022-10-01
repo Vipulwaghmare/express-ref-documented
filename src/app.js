@@ -1,17 +1,17 @@
-const cookieParser = require("cookie-parser");
 const express = require("express");
+const dotEnv = require("dotenv");
+dotEnv.config({ path: "./config/.env" });
+const cookieParser = require("cookie-parser");
 const path = require("path");
 const cors = require("cors");
 const swaggerUi = require("swagger-ui-express");
 const YAML = require("yamljs");
 const multer = require("multer");
 const session = require("express-session");
-const dotEnv = require("dotenv");
 const helmet = require("helmet");
 const logger = require("./logger");
 const cron = require("node-cron");
 
-dotEnv.config({ path: "./config/.env" });
 const dbConnection = require("../config/database");
 const { errorLogger, errorResponder } = require("./middleware/errorHandler");
 const pageNotFound = require("./middleware/pageNotFound");

@@ -8,6 +8,6 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // ! Test only
-// logger = prodLogger()
+// logger = prodLogger();
 
 module.exports = logger;
