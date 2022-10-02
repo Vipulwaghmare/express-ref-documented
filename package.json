@@ -37,6 +37,7 @@
     "swagger-ui-express": "^4.3.0",
     "winston": "^3.8.2",
     "winston-mail": "^2.0.0",
+    "xlsx": "^0.18.5",
     "yamljs": "^0.3.0"
   },
   "devDependencies": {

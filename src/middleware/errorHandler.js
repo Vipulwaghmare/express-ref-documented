@@ -1,7 +1,7 @@
 const logger = require("../logger");
 
 const errorLogger = (err, req, res, next) => {
-  logger.error(err);
+  logger.error(err.stack);
   next(err);
 };
 

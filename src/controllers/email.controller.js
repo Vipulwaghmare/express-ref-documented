@@ -5,7 +5,7 @@ const transporter = nodemailer.createTransport({
   host: process.env.SMTP_SERVER,
   secure: false,
   auth: {
-    user: process.env.SMTP_SENDER,
+    user: process.env.SMTP_LOGIN,
     pass: process.env.SMTP_PASSWORD,
   },
 });
@@ -26,8 +26,7 @@ const getMailData = ({ to, subject, text, html, attachment }) => ({
 //   text: 'Text whre will this be',
 //   html: '<h1>Hello this is h1 tag</h1>'
 // }
-// const test = sendMail(data)
-// res.send(test);
+// sendMail(data)
 
 const sendMail = (data) => {
   const mailData = getMailData(data);
