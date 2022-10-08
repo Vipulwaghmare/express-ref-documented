@@ -19,6 +19,7 @@ const pageNotFound = require("./middleware/pageNotFound");
 // Routes import
 const authRoutes = require("./routes/auth.routes");
 const corsOptions = require("../config/cors");
+const credentials = require("./middleware/credentials");
 // // const paginationRoute = require('./routes/pagination.routes')
 
 const swaggerDocument = YAML.load("./swagger.yaml");
@@ -46,6 +47,7 @@ app.use(express.urlencoded({ extended: false })); // For content-type: applicati
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors(corsOptions));
+app.use(credentials);
 app.use(helmet()); // Helmet is used for security : Adds additional headers to req res
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 

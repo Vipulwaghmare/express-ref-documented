@@ -4,24 +4,44 @@ const userSchema = new mongoose.Schema({
   id: {
     type: String,
   },
-  name: {
+  firstname: {
     type: String,
     default: null,
   },
-  password: {
+  lastname: {
     type: String,
+    default: null,
   },
   dob: {
     type: Date,
+    // required: true,
   },
   email: {
     type: String,
     unique: true,
+    required: true,
   },
-  isAdmin: {
-    type: Boolean,
-    default: false,
+  password: {
+    type: String,
+    required: true,
+  },
+  refreshToken: {
+    type: String,
+  },
+  role: {
+    type: Number,
+    default: 1,
+  },
+  roles: {
+    user: {
+      type: Number,
+      default: 1,
+    },
+    admin: Number,
   },
 });
 
-module.exports = mongoose.model("user", userSchema);
+// mongoose.model('Collection name', 'Your schema')
+const User = mongoose.model("User", userSchema);
+
+module.exports = User;
