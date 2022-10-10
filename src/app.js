@@ -18,6 +18,8 @@ const pageNotFound = require("./middleware/pageNotFound");
 
 // Routes import
 const authRoutes = require("./routes/auth.routes");
+const pdfRouter = require("./routes/pdf.routes");
+
 const corsOptions = require("../config/cors");
 const credentials = require("./middleware/credentials");
 // // const paginationRoute = require('./routes/pagination.routes')
@@ -64,6 +66,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // // Routes
 app.use("/api/v1", authRoutes);
+app.use("/api/v1", pdfRouter);
 // // app.use("/api/v1", paginationRoute)
 
 // // app.use();
