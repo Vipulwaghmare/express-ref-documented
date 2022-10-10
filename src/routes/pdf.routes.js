@@ -1,5 +1,5 @@
 const express = require("express");
-const { getPDF } = require("../controllers/pdf.controller");
+const { getPDF, generatePDF } = require("../controllers/pdf.controller");
 
 const pdfRouter = express.Router();
 

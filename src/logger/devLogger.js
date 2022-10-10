@@ -12,6 +12,8 @@ const devLogger = () => {
     format: combine(
       // colorize(),
       // label({ label: 'right meow!' }),
+      format.splat(),
+      format.simple(),
       timestamp({ format: "DD-MM-YYYY HH:mm:ss" }),
       myFormat,
     ),

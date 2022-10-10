@@ -2,6 +2,7 @@ const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const User = require("../model/User.model");
+const logger = require("../logger");
 
 // const ROLES_LIST = {
 //   Admin: 0,
@@ -10,6 +11,7 @@ const User = require("../model/User.model");
 
 const register = catchAsyncErrors(async (req, res) => {
   const { email, password } = req.body;
+  logger.log("info", "Signing up with email: %s", email);
 
   if (!email || !password) {
     return res.status(400).json({
@@ -57,6 +59,7 @@ const register = catchAsyncErrors(async (req, res) => {
 
 const login = catchAsyncErrors(async (req, res) => {
   const { email, password } = req.body;
+  logger.log("info", "Logging in with email: %s", email);
 
   if (!email || !password) {
     return res.status(400).json({

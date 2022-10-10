@@ -20,7 +20,12 @@ const options = {
 const prodLogger = () => {
   return createLogger({
     level: "debug",
-    format: combine(timestamp({ format: "DD-MM-YYYY HH:mm:ss" }), myFormat),
+    format: combine(
+      format.splat(),
+      format.simple(),
+      timestamp({ format: "DD-MM-YYYY HH:mm:ss" }),
+      myFormat,
+    ),
     handleExceptions: true,
     transports: [
       new transports.Console(),
