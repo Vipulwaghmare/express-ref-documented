@@ -1,5 +1,4 @@
 const html_to_pdf = require("html-pdf-node");
-const { Blob } = require("buffer");
 const path = require("path");
 const fs = require("fs");
 
